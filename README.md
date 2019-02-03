@@ -11,7 +11,7 @@
 ### TASKS
 
 a) 
-- [ ] 1pt Generate individual image targets from each of the images of the template. Use exact
+- [x] 1pt Generate individual image targets from each of the images of the template. Use exact
 measurements and be consistent with your units.
 ```diff
 - Show your image files and explain how you measured the size of the printouts and how these measurements relate to the image files.
