@@ -27,11 +27,18 @@ public class Shot : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShootTarget();
+            ShootTarget(transform.position);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            Vector3 localPos = transform.localPosition;
+            
+            //localPos.x += 0.055f;
+            //localPos.z += 0.007f;
+            //Vector3 worldPos = transform.localToWorldMatrix.MultiplyPoint(localPos);
+            var worldPos = transform.position + transform.rotation * localPos;
+            ShootTarget(worldPos);
 
         }
 
@@ -48,7 +55,11 @@ public class Shot : MonoBehaviour
         GL.Begin(GL.LINES);
         GL.Color(Color.red);
         GL.Vertex(_ray.origin);
+        //GL.Vertex3(0, 0, 0);
         GL.Vertex(_ray.origin + _rayDirectionAndLength);
+        //GL.Vertex(_ray.origin + _ray.origin);
+        //GL.Vertex3(0, 0, 0);
+        //GL.Vertex3(0,0, -100);
         GL.End();
     }
 
@@ -59,16 +70,16 @@ public class Shot : MonoBehaviour
         _shotButtonPressed = false;
     }
 
-    private void ShootTarget()
+    private void ShootTarget(Vector3 origin)
     {
-
-
         StartCoroutine(ShotEffect());
         Debug.Log("Shoot!!!");
 
+        //Vector3.
+
         _rayDirectionAndLength = transform.TransformDirection(Vector3.forward) * _rayLength;
 
-        _ray.origin = transform.position;
+        _ray.origin = origin;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity))
         {
             Debug.Log("Did Hit");
