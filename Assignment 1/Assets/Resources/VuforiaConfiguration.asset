@@ -17,8 +17,8 @@ MonoBehaviour:
     ufoLicenseKey: QVZFTlRyei8vLy8vQUFBQUtMNGR3SUdpRWtuN3RuRXl6QlhtS2w0NmFZUTRtQTlaMDZjTHM1SS93NjBPZFNIRDdTMzA4MDNJTllNR1k2SlBPRm1aYzhPbDgyb0Y2SlJ2cUdZVW56M0wwbkxUdmU3d3Rmb2Zsc3QyUzc4YVd6d2tKWWNWQUc0cFBSeHlNU1FPZGZsM2RxRGg3RjZkdVlhb1p4UVI3U0Jxc0xHQktSamh0UFlzU1RhbmNRaGxIM0JuQXFyN1p1YnlrMUhLekxHUjlTUzByV1lxQWYwWll6S2o0bkVTamRUN2dmWXVBS0ttUzVLNVBlcWYxSlIxL1A4YklIc0VaeXI2aWsyUWVKSnpBM3BWM3h2UlVFNC9OSHgwbGpkcWRTVzB0WDRLOVZFRjUzK1grSHJPU2MrNzJvZzJQL1p1blNaV09TWXVVMVJ5eVdjMlJmY3d3T212OVFZZmRWMUVxa3NPUzJOcTRQK2FWZGVLNFlvdDcwZUk=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
-    maxSimultaneousImageTargets: 1
-    maxSimultaneousObjectTargets: 1
+    maxSimultaneousImageTargets: 2
+    maxSimultaneousObjectTargets: 2
     useDelayedLoadingObjectTargets: 0
     cameraDirection: 0
     mirrorVideoBackground: 0
@@ -66,5 +66,5 @@ MonoBehaviour:
   webcam:
     deviceNameSetInEditor: 
     flipHorizontally: 0
-    turnOffWebCam: 1
+    turnOffWebCam: 0
     renderTextureLayer: 30

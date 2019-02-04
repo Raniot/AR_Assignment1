@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="Improved-LandingStribe" size="20.000000 54.893082" />
-    <ImageTarget name="Improved-spaceship3" size="20.000000 28.604650" />
-    <ImageTarget name="Orig-spaceship4" size="20.000000 34.428856" />
-    <ImageTarget name="Orig-spaceship3" size="20.000000 28.604650" />
-    <ImageTarget name="Orig-spaceship2" size="20.000000 26.456141" />
-    <ImageTarget name="Orig-spaceship" size="20.000000 27.343485" />
-    <ImageTarget name="Orig-LandingStribe" size="20.000000 54.893082" />
-    <ImageTarget name="Orig-earth" size="20.000000 20.025269" />
+    <ImageTarget name="Orig-earth" size="0.193000 0.193244" />
+    <ImageTarget name="Orig-TieFighter" size="0.035000 0.046298" />
+    <ImageTarget name="Orig-millenniumFalcon" size="0.072000 0.098437" />
+    <ImageTarget name="Improved-LandingLane" size="0.079000 0.216828" />
+    <ImageTarget name="Orig-spaceShuttle" size="0.060000 0.103287" />
+    <ImageTarget name="Improved-interceptor" size="0.035000 0.050058" />
   </Tracking>
 </QCARConfig>
