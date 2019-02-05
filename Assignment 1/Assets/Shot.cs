@@ -32,18 +32,18 @@ public class Shot : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Vector3 localPos = transform.localPosition;
-            
-            //localPos.x += 0.055f;
-            //localPos.z += 0.007f;
-            //Vector3 worldPos = transform.localToWorldMatrix.MultiplyPoint(localPos);
-            var worldPos = transform.position + transform.rotation * localPos;
-            ShootTarget(worldPos);
+            Vector3 localPosShip = transform.localPosition;
+            var worldPosShip = transform.parent.position + transform.parent.rotation * localPosShip;
+
+            Matrix4x4 mat = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+
+            var cannonLeftLocalPos = mat.MultiplyPoint3x4(new Vector3(-0.1f, 0f, 0.45f));
+            var cannonRightLocalPos = mat.MultiplyPoint3x4(new Vector3(0.1f, 0f, 0.45f));
+
+            ShootTarget(cannonLeftLocalPos);
+            ShootTarget(cannonRightLocalPos);
 
         }
-
-        // Will be called after all regular rendering is done
-
     }
 
     public void OnRenderObject()
@@ -55,11 +55,7 @@ public class Shot : MonoBehaviour
         GL.Begin(GL.LINES);
         GL.Color(Color.red);
         GL.Vertex(_ray.origin);
-        //GL.Vertex3(0, 0, 0);
         GL.Vertex(_ray.origin + _rayDirectionAndLength);
-        //GL.Vertex(_ray.origin + _ray.origin);
-        //GL.Vertex3(0, 0, 0);
-        //GL.Vertex3(0,0, -100);
         GL.End();
     }
 
@@ -75,12 +71,10 @@ public class Shot : MonoBehaviour
         StartCoroutine(ShotEffect());
         Debug.Log("Shoot!!!");
 
-        //Vector3.
-
         _rayDirectionAndLength = transform.TransformDirection(Vector3.forward) * _rayLength;
 
         _ray.origin = origin;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity))
+        if (Physics.Raycast(origin, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity))
         {
             Debug.Log("Did Hit");
             Instantiate(Explosion, hit.point, Quaternion.Euler(0, 0, 0));
