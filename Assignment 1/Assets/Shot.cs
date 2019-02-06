@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Assets;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Shot : MonoBehaviour
@@ -10,7 +12,8 @@ public class Shot : MonoBehaviour
 
     private float _rayLength = 10;
     private Ray _ray;
-    private Vector3 _rayDirectionAndLength;
+
+    private List<RayInfo> _rays = new List<RayInfo>();
 
 
     // Explosion
@@ -27,7 +30,7 @@ public class Shot : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShootTarget(transform.position);
+            ShootTarget(transform.position, Color.green);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -40,8 +43,8 @@ public class Shot : MonoBehaviour
             var cannonLeftLocalPos = mat.MultiplyPoint3x4(new Vector3(-0.1f, 0f, 0.45f));
             var cannonRightLocalPos = mat.MultiplyPoint3x4(new Vector3(0.1f, 0f, 0.45f));
 
-            ShootTarget(cannonLeftLocalPos);
-            ShootTarget(cannonRightLocalPos);
+            ShootTarget(cannonLeftLocalPos, Color.red);
+            ShootTarget(cannonRightLocalPos, Color.red);
 
         }
     }
@@ -52,11 +55,15 @@ public class Shot : MonoBehaviour
         if (_rayMaterial == null)
             _rayMaterial = new Material(Shader.Find("Hidden/Internal-Colored"));
         _rayMaterial.SetPass(0);
-        GL.Begin(GL.LINES);
-        GL.Color(Color.red);
-        GL.Vertex(_ray.origin);
-        GL.Vertex(_ray.origin + _rayDirectionAndLength);
-        GL.End();
+
+        foreach (var ray in _rays)
+        {
+            GL.Begin(GL.LINES);
+            GL.Color(ray.Color);
+            GL.Vertex(ray.Start);
+            GL.Vertex(ray.End);
+            GL.End();
+        }
     }
 
     private IEnumerator ShotEffect()
@@ -66,12 +73,14 @@ public class Shot : MonoBehaviour
         _shotButtonPressed = false;
     }
 
-    private void ShootTarget(Vector3 origin)
+    private void ShootTarget(Vector3 origin, Color color)
     {
         StartCoroutine(ShotEffect());
         Debug.Log("Shoot!!!");
 
-        _rayDirectionAndLength = transform.TransformDirection(Vector3.forward) * _rayLength;
+        var rayEnd = origin + transform.TransformDirection(Vector3.forward) * _rayLength;
+
+        _rays.Add(new RayInfo { Start = origin, End = rayEnd, Color = color });
 
         _ray.origin = origin;
         if (Physics.Raycast(origin, transform.TransformDirection(Vector3.forward), out var hit, Mathf.Infinity))
