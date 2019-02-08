@@ -5,6 +5,7 @@ public class Position : MonoBehaviour
 {
     private Transform _nose;
     private Transform _earthTarget;
+    private Transform _spaceShuttleTarget;
     private string _text;
 
     private string _text2;
@@ -12,8 +13,8 @@ public class Position : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var spaceShuttleTarget = transform.Find("SpaceShuttleTarget");
-        _nose = spaceShuttleTarget.Find("Nose");
+        _spaceShuttleTarget = transform.Find("SpaceShuttleTarget");
+        _nose = _spaceShuttleTarget.Find("Nose");
 
         _earthTarget = transform.Find("EarthTarget");
     }
@@ -21,8 +22,14 @@ public class Position : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var noseWorldPosition = _nose.localToWorldMatrix.MultiplyPoint(_nose.position);
-        var noseLocalPositionOnEarth = _earthTarget.worldToLocalMatrix.MultiplyPoint(noseWorldPosition);
+        Matrix4x4 mat = Matrix4x4.TRS(_spaceShuttleTarget.position, _spaceShuttleTarget.rotation, _spaceShuttleTarget.lossyScale);
+
+        var noseInSpaceShuttle = mat.MultiplyPoint3x4(_nose.localPosition);
+
+
+
+        //var noseWorldPosition = _spaceShuttleTarget.localToWorldMatrix.MultiplyPoint(noseInSpaceShuttle);
+        var noseLocalPositionOnEarth = _earthTarget.worldToLocalMatrix.MultiplyPoint(noseInSpaceShuttle);
 
         _text = $"Local Position: x: {noseLocalPositionOnEarth.x}, y: {noseLocalPositionOnEarth.y}, z: {noseLocalPositionOnEarth.z}";
 

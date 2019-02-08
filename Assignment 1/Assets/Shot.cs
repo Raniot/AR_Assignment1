@@ -42,7 +42,6 @@ public class Shot : MonoBehaviour
 
             ShootTarget(cannonLeftLocalPos, Color.red);
             ShootTarget(cannonRightLocalPos, Color.red);
-
         }
 
         if (Input.GetKeyDown(KeyCode.LeftAlt))
@@ -91,18 +90,13 @@ public class Shot : MonoBehaviour
 
         if (color.Equals(Color.magenta))
         {
-
-
-            var yaw = 45f;
-            var pitch = 10f;
+            var pitch = 0f;
+            var yaw = 90f;
             var roll = 0f;
             dir = Quaternion.Euler(pitch, yaw, roll) * Vector3.forward;
 
             rayEnd = origin + transform.TransformDirection(dir) * _rayLength;
         }
-
-
-        
 
         _ray.origin = origin;
         if (Physics.Raycast(origin, transform.TransformDirection(dir), out var hit, Mathf.Infinity))
